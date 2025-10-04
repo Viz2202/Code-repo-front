@@ -1,0 +1,6 @@
+.hoverDate:hover{
+    color: rgb(231, 134, 49);
+    cursor: pointer;
+    font-size: 16.5px;
+    transition-duration: 0.4s;
+}
