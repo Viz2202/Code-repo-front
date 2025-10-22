@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { backendURL } from "../../request";
 import "./Repositories.css";
-
+import gitpullrequest from "../assets/gitpullrequest.svg"
+import GitPull from "../components/icons/gitpullrequest/gitpullrequest";
+import RemoveRepo from "../components/icons/gitpullrequest/removerepo";
 const Repositories = () => {
   const navigate = useNavigate();
   const [repos, setRepos] = useState([]);
@@ -33,74 +35,66 @@ const Repositories = () => {
   }, []);
 
   const filteredname = filterbyname(repos, query);
-
   const clickRepo = (repo) => {
     sessionStorage.setItem("activeRepo", JSON.stringify(repo));
     navigate("/pr");
   };
 
+  const deleteRepo = async(repo) =>{
+    const repoId = repo.repo_id
+    await axios
+    .delete(`${backendURL}/repos/remove/${repoId}`)
+    fetchRepos();
+  }
+
+  const clickaddrepo = () =>{
+    navigate("/addrepo");
+  }
   return (
     <>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          height: "100%",
-          width: "100%",
-        }}
+
+        className="flex flex-col gap-3 h-full w-full bg-zinc-950 min-h-screen "
       >
         <div
-          style={{ display: "flex", gap: "10px", height: "30%", width: "100%" }}
+          className="text-center flex flex-row items-center mx-[20px]"
         >
-          <div
-            style={{ display: "flex", width: "50%", border: "1px solid red" }}
+          <h1
+            className="text-white text-5xl font-bold mb-4"
           >
-            catchy one liner related to repositories
-          </div>
+            Manage and Track your Activity here
+          </h1>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "50%",
-              border: "1px solid red",
-              padding: " 10px",
-            }}
+            className="flex flex-row items-center p-10 border-1 w-1/4 border-red-500"
           >
             <div
-              style={{ display: "flex", alignSelf: "flex-end", height: "20%" }}
+              className="justify-centerself-end h-[20%]"
             >
-              <button style={{ height: "fit-content" }}>Add new repo</button>
-            </div>
-            <div style={{ display: "flex", height: "80%" }}>
-              <input
-                type="text"
-                placeholder="Search repositories..."
-                className="mb-4 p-2 border rounded"
-                style={{ height: "fit-content" }}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
+              <button className = "text-white bg-[#1b1919] cursor-pointer h-10 w-30 rounded hover:border-1 border-blue-500 transtion-colors duration-100 ease-in-out" onClick = {()=>clickaddrepo()}>Add new repo</button>
             </div>
           </div>
         </div>
         <div
-          style={{ display: "flex", height: "70%", border: "1px solid red" }}
+          className = "flex flex-col h-0.7 border-1 border-red-500 w-full"
         >
+          <div className="justify-center text-white w-full">
+            <input
+              type="text"
+              placeholder="Search repositories..."
+              className="mb-4 p-2 border rounded"
+              style={{ height: "fit-content" }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
           {filteredname.length > 0 ? (
             <ul style={{ margin: "15px" }}>
               {filteredname.map((repos) => (
                 <li key={repos.repo_id}>
-                  <div
-                    style={{
-                      border: "2px solid yellow",
-                      padding: "20px",
-                      borderRadius: "10px",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => clickRepo(repos)}
-                  >
+                  <div className="text-white bg-[#1b1919] p-[20px] rounded-[10px] h-20 w-full">
                     {repos.repo_name}
+                    <button className="border-2 border-white p-2 rounded hover:border-[#535bf2] cursor-pointer transition duration-100 ease-linear" onClick={() => clickRepo(repos)}><GitPull color={'white'}/></button>
+                    <button className="border-2 border-white p-2 rounded hover:border-[#FF6347] cursor-pointer transition duration-100 ease-linear" onClick={() => deleteRepo(repos)}><RemoveRepo color = {'white'}/></button>
                   </div>
                 </li>
               ))}
