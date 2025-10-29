@@ -7,6 +7,7 @@ import "./Repositories.css";
 import gitpullrequest from "../assets/gitpullrequest.svg"
 import GitPull from "../components/icons/gitpullrequest/gitpullrequest";
 import RemoveRepo from "../components/icons/gitpullrequest/removerepo";
+import SearchIcon from "../components/icons/gitpullrequest/search";
 const Repositories = () => {
   const navigate = useNavigate();
   const [repos, setRepos] = useState([]);
@@ -56,51 +57,60 @@ const Repositories = () => {
 
         className="flex flex-col gap-3 h-full w-full bg-zinc-950 min-h-screen "
       >
-        <div
-          className="text-center flex flex-row items-center mx-[20px]"
-        >
-          <h1
-            className="text-white text-5xl font-bold mb-4"
-          >
-            Manage and Track your Activity here
-          </h1>
+        <div className="relative h-[300px] w-full">
           <div
-            className="flex flex-row items-center p-10 border-1 w-1/4 border-red-500"
-          >
-            <div
-              className="justify-centerself-end h-[20%]"
-            >
-              <button className = "text-white bg-[#1b1919] cursor-pointer h-10 w-30 rounded hover:border-1 border-blue-500 transtion-colors duration-100 ease-in-out" onClick = {()=>clickaddrepo()}>Add new repo</button>
-            </div>
+            className="absolute inset-0 bg-center bg-no-repeat bg-cover filter blur-sm"
+            style={{ backgroundImage: "url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWN1bGQzZmtmbWRkcGFwcHVhczJ6dWx3ZjA0MGoxbHppdDVsOTR5aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J9Ny6ynhLxzRm/giphy.gif')" }}
+          ></div>
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10 flex items-center justify-center h-full">
+            <h1 className="text-white text-6xl font-bold">Manage and track your activities here</h1>
           </div>
         </div>
-        <div
-          className = "flex flex-col h-0.7 border-1 border-red-500 w-full"
-        >
-          <div className="justify-center text-white w-full">
+        <div className = "flex flex-row items-center justify-between ml-5 mr-5">
+          <div className="flex text-white items-center gap-2">
+            <SearchIcon color={"white"}/>
             <input
               type="text"
               placeholder="Search repositories..."
-              className="mb-4 p-2 border rounded"
+              className="p-2 border rounded"
               style={{ height: "fit-content" }}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
+          <button className = "text-white bg-[#1b1919] cursor-pointer h-10 w-30 rounded hover:border-1 border-blue-500 transtion-colors duration-100 ease-in-out items-center" onClick = {()=>clickaddrepo()}>Add new repo</button>
+        </div>
+        <div className="flex flex-row justify-between h-0.7 w-full px-5">
           {filteredname.length > 0 ? (
-            <ul style={{ margin: "15px" }}>
+            <ul className="w-full">
               {filteredname.map((repos) => (
                 <li key={repos.repo_id}>
-                  <div className="text-white bg-[#1b1919] p-[20px] rounded-[10px] h-20 w-full">
-                    {repos.repo_name}
-                    <button className="border-2 border-white p-2 rounded hover:border-[#535bf2] cursor-pointer transition duration-100 ease-linear" onClick={() => clickRepo(repos)}><GitPull color={'white'}/></button>
-                    <button className="border-2 border-white p-2 rounded hover:border-[#FF6347] cursor-pointer transition duration-100 ease-linear" onClick={() => deleteRepo(repos)}><RemoveRepo color = {'white'}/></button>
+                  <div className="flex items-center text-white border-t border-b border-gray-300 py-4 px-5 h-20 w-full rounded-none">
+                    <span className="w-[200px] truncate text-left">{repos.repo_name}</span>
+                    <span className="text-gray-500 flex-1 text-center">
+                      By {sessionStorage.getItem("userName")}
+                    </span>
+                    <div className="flex gap-2">
+                      <button
+                        className="border-2 border-white p-2 rounded hover:border-[#535bf2] cursor-pointer transition duration-100 ease-linear"
+                        onClick={() => clickRepo(repos)}
+                      >
+                        <GitPull color={'white'} />
+                      </button>
+                      <button
+                        className="border-2 border-white p-2 rounded hover:border-[#FF6347] cursor-pointer transition duration-100 ease-linear"
+                        onClick={() => deleteRepo(repos)}
+                      >
+                        <RemoveRepo color={'white'} />
+                      </button>
+                    </div>
                   </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No matching results.</p>
+            <p className="mt-[10px] text-white text-center item-center">No matching results.........</p>
           )}
         </div>
       </div>
