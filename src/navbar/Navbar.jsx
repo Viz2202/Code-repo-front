@@ -23,7 +23,7 @@ const Navbar = ({}) => {
             <div className="text-xl font-bold">
                 <a href="/repos">
                   <img 
-                    src="./src/assets/logo-white.png" 
+                    src="../public/logo-white.png" 
                     alt="CoDeBug Logo" 
                     className="w-30 h-10"  // 👈 resize here
                   />
