@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Login.css";
 import axios from "axios";
 import { backendURL } from "../../request";
@@ -17,6 +17,7 @@ const Login = () => {
         const userInfo = response.data
         sessionStorage.setItem("userId", userInfo.user_id);
         sessionStorage.setItem("userName", userInfo.github_username);
+        sessionStorage.setItem("isLoggedIn","true");
         navigate('/repos');
       })
       .catch((err) => {});
@@ -30,6 +31,10 @@ const Login = () => {
   const gotoSignUp = () =>{
     navigate('/signup');
   }
+
+  useEffect(() =>{
+    sessionStorage.clear();
+  },[]);
 
   return (
   <div
@@ -47,7 +52,7 @@ const Login = () => {
           <div className="mt-8">
             <form className="pb-2">
               <input type="hidden" name="provider" value="Github" /><button
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-zinc-800 bg-none hover:bg-accent hover:text-accent-foreground h-10 px-4 w-full text-white py-6"
+                className="hover:cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-zinc-800 bg-none hover:bg-accent hover:text-accent-foreground h-10 px-4 w-full text-white py-6"
                 type="submit"
               >
                 <span className="mr-2"

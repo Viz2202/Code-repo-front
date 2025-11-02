@@ -6,6 +6,7 @@ import { backendURL } from "../../request";
 import { getdatetime, separatedatetime } from "../utilities/util.js";
 import Expand from "../assets/expand.svg";
 import "./pullRequest.css";
+import ArrowIcon from "../components/icons/gitpullrequest/arrow.jsx";
 
 const PullRequest = () => {
   const navigate = useNavigate();
@@ -54,12 +55,13 @@ const PullRequest = () => {
     }
   };
 
-  const goToResponse = (prNumber) => {
+  const goToResponse = (prNumber,prTitle) => {
     sessionStorage.setItem("prNumber", prNumber);
+    sessionStorage.setItem("prTitle", prTitle);
     navigate("/response");
   };
 
-  const startReview = async (prNumber) => {
+  const startReview = async (prNumber,prTitle) => {
     const data = {
       prnumber: prNumber,
       repo_name: repoDetails.repo_name,
@@ -67,67 +69,58 @@ const PullRequest = () => {
       repo_id: repoDetails.repo_id,
     };
     await axios.post(`${backendURL}/pull-requests/`, data);
-    goToResponse(prNumber);
+    goToResponse(prNumber,prTitle);
   };
 
   const printprs = () => {
     return pullrequests.map((pr, index) => {
       return (
         <div
-          className="flex"
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#353535",
-            padding: "16px",
-            borderRadius: "12px",
-          }}
+          key={pr.number}
+          className="flex flex-col justify-center items-center bg-[#353535] p-3 sm:p-4 rounded-xl"
         >
-          <div key={pr.number} className="flex w-full justify-between">
-            <div className="flex gap-4">
+          <div className="flex w-full justify-between flex-col sm:flex-row gap-3 sm:gap-0">
+            <div className="flex gap-2 sm:gap-4">
               <div onClick={() => toggleExpand(pr.number)}>
                 <img
                   src={Expand}
-                  style={{
-                    width: "45px",
-                    transform:
-                      showList.indexOf(pr.number) !== -1 ? "scaleY(-1)" : "",
-                    transition: "transform 0.4s ease",
-                  }}
+                  className={`w-[35px] sm:w-[45px] transition-transform duration-400 ease-in-out cursor-pointer ${
+                    showList.indexOf(pr.number) !== -1 ? "scale-y-[-1]" : ""
+                  }`}
                 />
               </div>
-              <div key={pr.number} className="pull-request-item ml-5">
-                <p
-                  className="font-bold text-left text-red-500"
-                  style={{ marginBottom: "0.5rem" }}
-                >
+
+              <div className="pull-request-item ml-2 sm:ml-5 flex-1 min-w-0">
+                <p className="font-bold text-left text-red-500 mb-2 text-sm sm:text-base break-words">
                   {pr.title} (#{pr.number})
                 </p>
-                <p className="text-left">
-                  {pr.source_branch} ➡️ {pr.target_branch}{" "}
+                <p className="flex items-center text-left text-white gap-2 text-xs sm:text-base flex-wrap">
+                  <span className="truncate max-w-[100px] sm:max-w-none">{pr.source_branch}</span>
+                  <span className="flex items-center flex-shrink-0">
+                    <ArrowIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </span>
+                  <span className="truncate max-w-[100px] sm:max-w-none">{pr.target_branch}</span>
                 </p>
               </div>
             </div>
-            <div className="justify-end" onClick={() => startReview(pr.number)}>
-              <button>Review</button>
+
+            <div
+              className="flex justify-end sm:justify-start"
+              onClick={() => startReview(pr.number,pr.title)}
+            >
+              <button className="bg-red-500 hover:bg-white hover:text-red-500 text-white px-3 py-1 rounded transition-all duration-200 cursor-pointer text-sm sm:text-base w-full sm:w-auto">
+                Review
+              </button>
             </div>
           </div>
+
           {showList.indexOf(pr.number) !== -1 && (
-            <ul
-              className="flex w-full"
-              style={{
-                flexDirection: "column",
-                alignItems: "start",
-                padding: "0 62px",
-                marginTop: "16px",
-                gap: "12px",
-              }}
-            >
+            <ul className="flex w-full flex-col items-start px-4 sm:px-[62px] mt-4 gap-3 text-white text-sm sm:text-base">
               {listData[pr.number]?.map((list, i) => (
                 <li
-                  onClick={() => goToResponse(pr.number)}
-                  className="hoverDate"
+                  key={i}
+                  onClick={() => goToResponse(pr.number,pr.title)}
+                  className="text-left text-base transition-transform duration-200 hover:cursor-pointer hover:scale-102 inline-block break-words w-full"
                 >
                   {separatedatetime(list)}
                 </li>
@@ -138,23 +131,21 @@ const PullRequest = () => {
       );
     });
   };
+  
   return (
-    <div>
-      <h2>Pull Requests</h2>
-      <p>List of pull request will be displayed here.</p>
-      <div
-        style={{
-          width: "100%",
-          padding: "0 264px",
-          marginTop: "50px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-        }}
-      >
+    <div className="bg-zinc-950 min-h-screen px-4 sm:px-8 lg:px-0">
+      <h2 className="border-t pt-[20px] border-gray-500 text-white text-xl sm:text-2xl font-semibold">
+        Pull Requests
+      </h2>
+      <p className="text-gray-300 text-sm sm:text-base">
+        List of pull requests will be displayed here.
+      </p>
+
+      <div className="w-full lg:px-[264px] mt-[30px] sm:mt-[50px] flex flex-col gap-[15px] sm:gap-[20px]">
         {printprs(pullrequest)}
       </div>
     </div>
   );
+
 };
 export default PullRequest;

@@ -13,16 +13,17 @@ import AddRepository from './addrepository/AddRepository.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import logoImage from './assets/logo.png'
 import Layout from './layout/Layout.jsx'
+import RouteProtect from './routeprotect.jsx'
 function App(){
   return(
     <Router>
       <Routes>
-          <Route path="/repos" element={<Layout><Repositories /></Layout>} />
-          <Route path="/pr" element={<Layout><PullRequest /></Layout>} />
+          <Route path="/repos" element={<RouteProtect><Layout><Repositories /></Layout></RouteProtect>} />
+          <Route path="/pr" element={<RouteProtect><Layout><PullRequest /></Layout></RouteProtect>} />
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/response" element={<Layout><Response /></Layout>} />
-          <Route path="/addrepo" element={<Layout><AddRepository/></Layout>}/>
+          <Route path="/response" element={<RouteProtect><Layout><Response /></Layout></RouteProtect>} />
+          <Route path="/addrepo" element={<RouteProtect><Layout><AddRepository/></Layout></RouteProtect>}/>
         </Routes>
     </Router>
   );

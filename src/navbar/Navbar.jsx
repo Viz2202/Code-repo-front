@@ -1,16 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({}) => {
+    const navigate = useNavigate();
     const [isOpen,setIsOpen] = useState(false);
-    const buttonClasses = 'text-gray-100 font-bold text-sm px-2 py-1 hover:underline transition duration-300'
+    const buttonClasses = 'text-gray-100 font-bold text-sm px-2 py-1 hover:underline transition duration-300 cursor-pointer'
+    const LogOut = () =>{
+      sessionStorage.clear();
+      navigate('/')
+    };
     const buttons = (
       <>
         <button className={buttonClasses}>About</button>
-        <button className={buttonClasses}>LogOut</button>
+        <button className={buttonClasses} onClick = {() => LogOut()}>LogOut</button>
       </>
     )
   return (
-    <nav className="bg-zinc-950 text-white fixed w-full z-50">
+    <nav className="bg-zinc-950 text-white fixed w-full z-50 border-b border-gray-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex flex-row w-full justify-between">
