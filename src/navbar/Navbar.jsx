@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WhiteLogo from '../../public/logo-white.png'
 
 const Navbar = ({}) => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Navbar = ({}) => {
             <div className="text-xl font-bold">
                 <a href="/repos">
                   <img 
-                    src="../public/logo-white.png" 
+                    src={WhiteLogo} 
                     alt="CoDeBug Logo" 
                     className="w-30 h-10"  // 👈 resize here
                   />

@@ -64,7 +64,7 @@ const Repositories = () => {
           ></div>
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative z-10 flex items-center justify-center h-full">
-            <h1 className="text-white text-6xl font-bold">Manage and track your activities here</h1>
+            <h1 className="text-white text-6xl font-bold">Where bugs go to die (mostly)</h1>
           </div>
         </div>
         <div className = "flex flex-row items-center justify-between ml-5 mr-5">
