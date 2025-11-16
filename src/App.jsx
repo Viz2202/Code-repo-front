@@ -18,9 +18,9 @@ function App(){
   return(
     <Router>
       <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="/repos" element={<RouteProtect><Layout><Repositories /></Layout></RouteProtect>} />
           <Route path="/pr" element={<RouteProtect><Layout><PullRequest /></Layout></RouteProtect>} />
-          <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/response" element={<RouteProtect><Layout><Response /></Layout></RouteProtect>} />
           <Route path="/addrepo" element={<RouteProtect><Layout><AddRepository/></Layout></RouteProtect>}/>
