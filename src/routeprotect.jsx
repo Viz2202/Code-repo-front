@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 function RouteProtect({ children }) {
   const isLoggedIn = sessionStorage.getItem("isLoggedIn");
   if(!isLoggedIn){
+    console.log(isLoggedIn)
     sessionStorage.clear();
     <Navigate to="/" replace />
   }
