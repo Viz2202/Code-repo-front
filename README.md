@@ -38,7 +38,3 @@ https://github.com/Viz2202/Code-repo
 2. Modified code (patch) is extracted  
 3. AI analyzes the changes  
 4. File-wise review comments are generated  
-
----
-
-👉 **Backend Source Code:**  
