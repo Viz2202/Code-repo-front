@@ -49,7 +49,7 @@ const Login = () => {
           <p className="mb-2.5 mt-2.5 font-normal text-zinc-400">
             Enter your email and password to sign in!
           </p>
-          <div className="mt-8">
+          {/* <div className="mt-8">
             <form className="pb-2">
               <input type="hidden" name="provider" value="Github" /><button
                 className="hover:cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-zinc-800 bg-none hover:bg-accent hover:text-accent-foreground h-10 px-4 w-full text-white py-6"
@@ -62,7 +62,7 @@ const Login = () => {
                 ><span>Github</span>
               </button>
             </form>
-          </div>
+          </div> */}
           <div className="relative my-4">
             <div className="relative flex items-center py-1">
               <div className="grow border-t border-zinc-800"></div>

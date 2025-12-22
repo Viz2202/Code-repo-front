@@ -87,11 +87,11 @@ const Repositories = () => {
               {filteredname.map((repos) => (
                 <li key={repos.repo_id}>
                   <div className="flex items-center text-white border-t border-b border-gray-300 py-4 px-5 h-20 w-full rounded-none">
-                    <span className="w-[200px] truncate text-left">{repos.repo_name}</span>
+                    <span className="flex-1 w-[200px] truncate text-left">{repos.repo_name}</span>
                     <span className="text-gray-500 flex-1 text-center">
                       By {sessionStorage.getItem("userName")}
                     </span>
-                    <div className="flex gap-2">
+                    <div className="flex flex-1 justify-end gap-2">
                       <button
                         className="border-2 border-white p-2 rounded hover:border-[#535bf2] cursor-pointer transition duration-100 ease-linear"
                         onClick={() => clickRepo(repos)}
