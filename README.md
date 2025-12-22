@@ -28,7 +28,9 @@ It acts as a **first-layer reviewer**, helping developers fix common issues earl
 ---
 
 ## 🔗 Backend Repository
-This is only the frontend repository to see the backend repository click on the link mentioned below:
+This is only the frontend repository.  
+To view the backend repository, click the link below:
+
 https://github.com/Viz2202/Code-repo
 
 ---
