@@ -1,12 +1,44 @@
-# React + Vite
+# 🚀 CodeBug – AI Pull Request Reviewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**CodeBug** is an AI-powered tool that reviews GitHub pull requests by analyzing **only the modified code** and generating **human-like review comments** using Generative AI.
 
-Currently, two official plugins are available:
+It acts as a **first-layer reviewer**, helping developers fix common issues early and speeding up the review process.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔍 Patch-based review (only changed lines)
+- 🧠 AI-generated, natural-language feedback
+- 📂 File-wise comments for clarity
+- 🕒 Review history with timestamps
+- 🔄 Re-review on new commits
+- 🔐 GitHub API integration
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** React.js  
+- **Backend:** Python, FastAPI  
+- **AI Model:** LLaMA (via Groq API)  
+- **Database:** Firebase Firestore  
+- **APIs:** GitHub REST API  
+
+---
+
+## 🔗 Backend Repository
+https://github.com/Viz2202/Code-repo
+
+---
+
+## ⚙️ How It Works
+
+1. Select a GitHub repository and pull request  
+2. Modified code (patch) is extracted  
+3. AI analyzes the changes  
+4. File-wise review comments are generated  
+
+---
+
+👉 **Backend Source Code:**  
