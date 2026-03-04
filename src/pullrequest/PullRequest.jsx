@@ -18,7 +18,7 @@ const PullRequest = () => {
 
   const fetchprs = async () => {
     await axios
-      .get(`${backendURL}/pull-requests/all-remote/${repoDetails.repo_id}`)
+      .get(`${backendURL}/pull-requests/all-remote/${repoDetails.repo_id}/${repoDetails.platform}`)
       .then((response) => {
         setpullrequests(response.data);
       })
@@ -31,7 +31,7 @@ const PullRequest = () => {
   const getResponses = async (pull_request_number) => {
     await axios
       .get(
-        `${backendURL}/issues/ids/${repoDetails.repo_id}_${pull_request_number}`
+        `${backendURL}/issues/ids/${repoDetails.repo_id}_${pull_request_number}_${repoDetails.platform}`
       )
       .then((response) => {
         const list = response.data.ids.map((res) => {
@@ -67,6 +67,7 @@ const PullRequest = () => {
       repo_name: repoDetails.repo_name,
       user_name: userName,
       repo_id: repoDetails.repo_id,
+      platform: repoDetails.platform
     };
     await axios.post(`${backendURL}/pull-requests/`, data);
     goToResponse(prNumber,prTitle);

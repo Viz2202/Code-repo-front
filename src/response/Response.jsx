@@ -43,7 +43,7 @@ const Response = () => {
   }, []);
   const fetchairesponse = async () => {
     await axios
-      .get(`${backendURL}/issues/${repoDetails.repo_id}_${pullRequestNumber}`)
+      .get(`${backendURL}/issues/${repoDetails.repo_id}_${pullRequestNumber}_${repoDetails.platform}`)
       .then((response) => {
         const issues = Object.values(response.data.issues)[0].issuelist;
         setairesponse(issues);
@@ -53,7 +53,7 @@ const Response = () => {
   useEffect(() => {
     fetchairesponse();
   }, []);
-
+  
   const printresponse = (issuearray) => {
     return airesponse.map((issue) => {
     const text = issue.issues;

@@ -27,17 +27,17 @@ const AddRepository = () =>{
         await axios
             .get(`${backendURL}/repos/all-remote/${userId}`)
             .then((response)=>{
-                const AddrepoList = [...Object.values(response.data).map(({name,id})=>({name,id}))];
-                setrepos(AddrepoList);
+                setrepos(response.data);
             })
             .catch((err)=>{});
     };
-    const addtorepo = async(repoid,reponame) =>{
+    const addtorepo = async(repoid,reponame,platform) =>{
         const data =
         {
             repo_id: String(repoid),
             repo_name: String(reponame),
-            user_id: String(userId)
+            user_id: String(userId),
+            platform: String(platform)
         };
         await axios.post(`${backendURL}/repos/`,data);
         navigate("/repos")
@@ -52,17 +52,16 @@ const AddRepository = () =>{
         return repos
         .filter(repo => repo.name.toLowerCase().includes(query.toLowerCase()))
         .map((repo,id)=>{
-            const exists = existingrepos.find(obj => Number(obj.repo_id) === Number(repo.id))
+            const exists = existingrepos.find(obj => Number(obj.repo_id) === Number(repo.id) && String(obj.platform) === String(repo.platform))
             if(exists){
-                console.log(repo.id)
                 return null;
             }
             return(
-                <div>
+                <div key={`${repo.platform}-${repo.id}`}>
                     <div className="flex items-center px-4 sm:px-[20px] mx-4 sm:mx-[300px] h-12.5 border border-gray-500 mb-0">
                         <span className="w-20 sm:w-[200px] truncate text-sm sm:text-base text-left">{repo.name}</span>
-                        <p className="text-gray-500 flex-1 text-center text-xs sm:text-base">By {sessionStorage.getItem("userName")}</p>
-                        <button className="w-16 sm:w-[80px] text-sm sm:text-base cursor-pointer border-1 border-white-500 rounded-sm hover:bg-white hover:text-black transition-colors duration-300 ease-in-out" onClick={() => addtorepo(repo.id, repo.name)}>Add</button>
+                        <p className="text-gray-500 flex-1 text-center text-xs sm:text-base">{repo.platform === "github" ? "GitHub" : "GitLab"}</p>
+                        <button className="w-16 sm:w-[80px] text-sm sm:text-base cursor-pointer border-1 border-white-500 rounded-sm hover:bg-white hover:text-black transition-colors duration-300 ease-in-out" onClick={() => addtorepo(repo.id, repo.name,repo.platform)}>Add</button>
                     </div>
                 </div>
             );

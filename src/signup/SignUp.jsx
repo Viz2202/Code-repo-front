@@ -26,6 +26,7 @@ function SignUp() {
         name: formData.name,
         emailid: formData.emailid,
         github_username: formData.github_username,
+        gitlab_username: formData.gitlab_username,
         password: formData.password,
       };
 
@@ -123,6 +124,18 @@ function SignUp() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     name="github_username"
+                    onChange={handleChange} 
+                    required
+                  /><label className="text-white" htmlFor="email">
+                    Gitlab Username</label
+                  ><input
+                    className="mr-2.5 mb-2 h-full min-h-[44px] w-full rounded-lg border bg-zinc-950 text-white border-zinc-800 px-4 py-3 text-sm font-medium placeholder:text-zinc-400 focus:outline-0 dark:border-zinc-800 dark:bg-transparent dark:text-white dark:placeholder:text-zinc-400"
+                    id="gitlab_username"
+                    placeholder="Gitlab username"
+                    type="text"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    name="gitlab_username"
                     onChange={handleChange} 
                     required
                   /><label

@@ -26,8 +26,7 @@ const Repositories = () => {
     await axios
       .get(`${backendURL}/repos/${userId}`)
       .then((response) => {
-        const repoList = [...Object.values(response.data)];
-        setRepos(repoList);
+        setRepos(Object.values(response.data));
       })
       .catch((err) => {});
   };
@@ -47,7 +46,6 @@ const Repositories = () => {
     .delete(`${backendURL}/repos/remove/${repoId}`)
     fetchRepos();
   }
-
   const clickaddrepo = () =>{
     navigate("/addrepo");
   }
@@ -89,7 +87,7 @@ const Repositories = () => {
                   <div className="flex items-center text-white border-t border-b border-gray-300 py-4 px-5 h-20 w-full rounded-none">
                     <span className="flex-1 w-[200px] truncate text-left">{repos.repo_name}</span>
                     <span className="text-gray-500 flex-1 text-center">
-                      By {sessionStorage.getItem("userName")}
+                      {repos.platform === "github"?"GitHub":"GitLab"}
                     </span>
                     <div className="flex flex-1 justify-end gap-2">
                       <button
