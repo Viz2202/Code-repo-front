@@ -1,13 +1,28 @@
 export function formatText(input) {
-  const codeBlockRegex = /```([\s\S]*?)```/g;
-  input = input.replace(codeBlockRegex, (_, code) => {
-    const cleanCode = code.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    return `<div class="custom-code-block">${cleanCode.trim()}</div>`;
+
+  const escapeHTML = (str) =>
+    str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  // handle code blocks
+  const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
+
+  input = input.replace(codeBlockRegex, (_, lang, code) => {
+    const cleanCode = escapeHTML(code.trim());
+
+    return `
+      <div class="custom-code-block">
+        <pre><code>${cleanCode}</code></pre>
+      </div>
+    `;
   });
-  const boldRegex = /\*\*(.*?)\*\*/g;
-  input = input.replace(boldRegex, (_, text) => {
-    return `<strong>${text}</strong>`;
-  });
+
+  // bold
+  input = input.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+  // line breaks
   input = input.replace(/\n/g, "<br />");
 
   return input;
